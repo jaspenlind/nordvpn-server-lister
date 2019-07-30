@@ -1,0 +1,19 @@
+{
+  "name": "nordvpn-server-lister",
+  "version": "1.0.0",
+  "description": "A tool for listing NordVPN servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "repository": {
+    "url": "https://github.com/jaspenlind/nordvpn-server-lister"
+  },
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
