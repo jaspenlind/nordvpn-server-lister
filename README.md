@@ -23,5 +23,5 @@ node . -filter.load\<1 -output=id -output=name -raw
 ### Output
 
 ```json
-{"id":925471,"name":"Egypt #5"},{"id":943159,"name":"Hong Kong #122"}]
+[{"id":925471,"name":"Egypt #5"},{"id":943159,"name":"Hong Kong #122"}]
 ```
