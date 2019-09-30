@@ -1,4 +1,7 @@
 import request from "request-promise";
+import { empty, Server, QueryResult } from "../models/serverQueryResult";
+
+const REQUEST_LIMIT = 16384;
 
 const item = "item";
 
@@ -17,8 +20,28 @@ usage: node ${args[1]} [parameters]
   }
 };
 
-const getServers = () => {
-  return request("https://api.nordvpn.com/server?limit=16384", { json: true });
+const getServers = async (): Promise<QueryResult<Server>> => {
+  let moreExists = false;
+  let response: string = await request(
+    `https://api.nordvpn.com/server?limit=${REQUEST_LIMIT}`,
+    {
+      json: false
+    }
+  );
+
+  if (response && response.startsWith("[") && !response.endsWith("]")) {
+    response = response.substring(0, response.lastIndexOf("{") - 1);
+    moreExists = true;
+  }
+
+  const servers: Server[] = JSON.parse(response);
+
+  const result: QueryResult<Server> = {
+    items: servers,
+    moreExists
+  };
+
+  return Promise.resolve(result);
 };
 
 const dynamicCallback = (body: string, param = item) =>
@@ -55,18 +78,18 @@ const createMap = (args: string[]) => {
   return dynamicCallback(projection);
 };
 
-const printResult = (result: string[], args: string[]) => {
-  if (args.filter(x => x === "-raw").length > 0) {
-    const raw =
-      result.length > 0 && typeof result[0] === "object"
-        ? JSON.stringify(result)
-        : result.join("\n");
+const printResult = (result: QueryResult<Server>, args: string[]) => {
+  // if (args.filter(x => x === "-raw").length > 0) {
+  //   const raw =
+  //     result.length > 0 && typeof result[0] === "object"
+  //       ? JSON.stringify(result)
+  //       : result.join("\n");
 
-    console.log(raw);
-    return;
-  }
+  //   console.log(raw);
+  //   return;
+  // }
 
-  console.log(result);
+  console.log(result.items[0]);
 };
 
 const run = async (args: string[]) => {
@@ -74,7 +97,7 @@ const run = async (args: string[]) => {
 
   const servers = await getServers();
 
-  const result = servers.filter(createFilter(args)).map(createMap(args));
+  const result = servers; // .filter(createFilter(args)).map(createMap(args));
 
   printResult(result, args);
 };

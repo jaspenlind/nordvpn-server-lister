@@ -1,4 +1,4 @@
-import cli from "../cli";
+import cli from "../lib/cli";
 
 (async () => {
   const args = process.argv;
