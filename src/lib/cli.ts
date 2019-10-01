@@ -1,5 +1,6 @@
 import request from "request-promise";
-import { empty, Server, QueryResult } from "../models/serverQueryResult";
+import { Server, QueryResult } from "../models/serverQueryResult";
+import optionParser, { ParseOptions } from "./optionParser";
 
 const REQUEST_LIMIT = 16384;
 
@@ -89,7 +90,7 @@ const printResult = (result: QueryResult<Server>, args: string[]) => {
   //   return;
   // }
 
-  console.log(result.items[0]);
+  console.log(result.items.length);
 };
 
 const run = async (args: string[]) => {
@@ -97,7 +98,16 @@ const run = async (args: string[]) => {
 
   const servers = await getServers();
 
+  const options: ParseOptions = { keyPrefix: "filter" };
+  const filter = optionParser.parse(args, options).asPartial<Server>();
+
+  console.log(filter);
+
   const result = servers; // .filter(createFilter(args)).map(createMap(args));
+
+  if (filter.flag) {
+    result.items = result.items.filter(x => x.flag === filter.flag);
+  }
 
   printResult(result, args);
 };

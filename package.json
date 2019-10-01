@@ -8,10 +8,10 @@
     "dist/src/*"
   ],
   "bin": {
-    "nordservers": "dist/src/bin/nordservers.js"
+    "vpn-servers": "dist/src/bin/vpn-servers.js"
   },
   "scripts": {
-    "start": "ts-node src/bin/nordservers.ts",
+    "start": "ts-node src/bin/vpn-servers.ts",
     "prepare": "npm run build",
     "prepublishOnly": "npm-run-all test lint",
     "version": "git add -A src",
