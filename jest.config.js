@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // // jest.config.js
 // // eslint-disable-next-line @typescript-eslint/no-var-requires
 // const { pathsToModuleNameMapper } = require("ts-jest/utils");
@@ -13,15 +14,12 @@ module.exports = {
       tsConfig: "tsconfig.json"
     }
   },
-  setupFilesAfterEnv: ["jest-extended"],
-  // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-  //   prefix: "<rootDir>/"
-  // }),
-  moduleFileExtensions: ["ts", "js"],
-  modulePathIgnorePatterns: [
-    "<rootDir>/dist/",
-    "<rootDir>/test/jest/flex.test-data"
+  setupFilesAfterEnv: [
+    "jest-extended",
+    "<rootDir>/test/jest/setupFilesAfterEnv.ts"
   ],
+  moduleFileExtensions: ["ts", "js"],
+  modulePathIgnorePatterns: ["<rootDir>/dist/"],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },

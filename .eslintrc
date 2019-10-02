@@ -24,6 +24,7 @@
   ],
   "rules": {
     "prettier/prettier": "error",
+    "no-restricted-syntax": ["off", "ForOfStatement"],
     "semi": "off",
     "class-methods-use-this": ["off"],
     "@typescript-eslint/semi": ["off"],

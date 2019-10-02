@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import request from "request-promise";
 import { Server, QueryResult } from "../models/serverQueryResult";
 import optionParser, { ParseOptions } from "./optionParser";

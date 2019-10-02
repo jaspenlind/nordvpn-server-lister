@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { convert, StringLike } from "./stringConverter";
 import { last } from "./arrayHelper";
 

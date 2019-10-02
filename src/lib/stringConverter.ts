@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { StringConvertible, StringLike } from "../types";
 
 export { StringConvertible, StringLike };

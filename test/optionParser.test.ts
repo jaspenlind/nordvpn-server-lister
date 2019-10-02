@@ -90,6 +90,26 @@ describe("optionsParser", () => {
       expect(options.get("h")).toBeUndefined();
       expect(options.get("arg2")).toBe("value2");
     });
+
+    it("can parse options with separators", () => {
+      const args = [
+        "-option1=value1",
+        "-option2=value2",
+        "extra",
+        "-option3=value3"
+      ];
+
+      const [option1, option2, option3] = [
+        ...optionParser.parse(args).entries()
+      ];
+
+      expect(option1[0]).toBe("option1");
+      expect(option1[1]).toBe("value1");
+      expect(option2[0]).toBe("option2");
+      expect(option2[1]).toBe("value2");
+      expect(option3[0]).toBe("option3");
+      expect(option3[1]).toBe("value3");
+    });
   });
 
   describe("unwrap", () => {
