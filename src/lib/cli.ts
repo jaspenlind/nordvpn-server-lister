@@ -2,10 +2,9 @@
 import request from "request-promise";
 import { Server, QueryResult } from "../models/serverQueryResult";
 import optionParser, { ParseOptions } from "./optionParser";
+import partialFilter from "./partialFilter";
 
 const REQUEST_LIMIT = 16384;
-
-const item = "item";
 
 const handleHelp = (args: string[]) => {
   if (args.filter(x => x === "-h").length > 0) {
@@ -46,71 +45,18 @@ const getServers = async (): Promise<QueryResult<Server>> => {
   return Promise.resolve(result);
 };
 
-const dynamicCallback = (body: string, param = item) =>
-  // eslint-disable-next-line no-new-func
-  new Function(param, `return ${body};`);
-
-const createFilter = (args: string[]) => {
-  const filterArgs = args.filter(x => x.startsWith("-filter."));
-
-  const predicate =
-    filterArgs.length === 0
-      ? "true"
-      : filterArgs
-          .map(x => x.replace(/-filter/, item).replace(/=/, "==="))
-          .join(" && ");
-
-  return dynamicCallback(predicate);
-};
-
-const createMap = (args: string[]) => {
-  const output = args
-    .filter(x => x.startsWith("-output="))
-    .map(x => x.substring(8));
-
-  let projection: string = item;
-
-  if (output.length > 0) {
-    projection =
-      output.length === 1
-        ? `${item}.${output[0]}`
-        : `{ ${output.map(x => `${x}: ${item}.${x}`).join(",")} };`;
-  }
-
-  return dynamicCallback(projection);
-};
-
-const printResult = (result: QueryResult<Server>, args: string[]) => {
-  // if (args.filter(x => x === "-raw").length > 0) {
-  //   const raw =
-  //     result.length > 0 && typeof result[0] === "object"
-  //       ? JSON.stringify(result)
-  //       : result.join("\n");
-
-  //   console.log(raw);
-  //   return;
-  // }
-
-  console.log(result.items.length);
-};
-
 const run = async (args: string[]) => {
   handleHelp(args);
 
   const servers = await getServers();
 
   const options: ParseOptions = { keyPrefix: "filter" };
+
   const filter = optionParser.parse(args, options).asPartial<Server>();
 
-  console.log(filter);
+  const result = servers.items.filter(x => partialFilter.filter(filter, x));
 
-  const result = servers; // .filter(createFilter(args)).map(createMap(args));
-
-  if (filter.flag) {
-    result.items = result.items.filter(x => x.flag === filter.flag);
-  }
-
-  printResult(result, args);
+  console.log(result.length);
 };
 
 export default { run };

@@ -1,5 +1,5 @@
 export default interface ServerFeatures {
-  ikev2: true;
+  ikev2: boolean;
   openvpn_udp: boolean;
   openvpn_tcp: boolean;
   socks: boolean;
