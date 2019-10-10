@@ -46,6 +46,7 @@
   "dependencies": {
     "@types/lodash.escaperegexp": "^4.1.6",
     "lodash.escaperegexp": "^4.1.2",
+    "option-parser": "https://github.com/jaspenlind/option-parser/releases/download/v0.0.1-alpha.2/option-parser-0.0.1-alpha.2.tgz",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "tslib": "^1.10.0"

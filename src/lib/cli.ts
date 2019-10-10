@@ -1,8 +1,7 @@
 #!/usr/bin/env node
+import optionParser, { ParseOptions } from "option-parser/dist/src";
 import request from "request-promise";
 import { Server, QueryResult } from "../models/serverQueryResult";
-import optionParser, { ParseOptions } from "./optionParser";
-import partialFilter from "./partialFilter";
 
 const REQUEST_LIMIT = 16384;
 
@@ -50,11 +49,11 @@ const run = async (args: string[]) => {
 
   const servers = await getServers();
 
-  const options: ParseOptions = { keyPrefix: "filter" };
+  const settings: ParseOptions = { keyPrefix: "filter" };
 
-  const filter = optionParser.parse(args, options).asPartial<Server>();
+  const options = optionParser.parse(args, settings);
 
-  const result = servers.items.filter(x => partialFilter.filter(filter, x));
+  const result = options.filter(...servers.items);
 
   console.log(result.length);
 };
