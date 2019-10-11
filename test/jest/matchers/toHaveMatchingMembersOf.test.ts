@@ -3,14 +3,8 @@ import { SyncExpectationResult } from "expect/build/types";
 import matcher from "./toHaveMatchingMembersOf";
 
 describe("toHaveMatchingMembersOf", () => {
-  const invoke = (
-    received: number | object,
-    expected: number | object
-  ): SyncExpectationResult =>
-    matcher.toHaveMatchingMembersOf(
-      received,
-      expected
-    ) as SyncExpectationResult;
+  const invoke = (received: number | object, expected: number | object): SyncExpectationResult =>
+    matcher.toHaveMatchingMembersOf(received, expected) as SyncExpectationResult;
 
   describe("when objects are equal", () => {
     it("should fail for primitives", () => {

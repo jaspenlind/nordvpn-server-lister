@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import optionParser, { ParseOptions } from "option-parser/dist/src";
+import optionParser, { ParserSettings } from "option-parser";
 import request from "request-promise";
 import { Server, QueryResult } from "../models/serverQueryResult";
 
@@ -22,12 +22,9 @@ usage: node ${args[1]} [parameters]
 
 const getServers = async (): Promise<QueryResult<Server>> => {
   let moreExists = false;
-  let response: string = await request(
-    `https://api.nordvpn.com/server?limit=${REQUEST_LIMIT}`,
-    {
-      json: false
-    }
-  );
+  let response: string = await request(`https://api.nordvpn.com/server?limit=${REQUEST_LIMIT}`, {
+    json: false
+  });
 
   if (response && response.startsWith("[") && !response.endsWith("]")) {
     response = response.substring(0, response.lastIndexOf("{") - 1);
@@ -49,13 +46,13 @@ const run = async (args: string[]) => {
 
   const servers = await getServers();
 
-  const settings: ParseOptions = { keyPrefix: "filter" };
+  const settings: ParserSettings = { keyPrefix: "filter" };
 
   const options = optionParser.parse(args, settings);
 
   const result = options.filter(...servers.items);
 
-  console.log(result.length);
+  console.log(result);
 };
 
 export default { run };

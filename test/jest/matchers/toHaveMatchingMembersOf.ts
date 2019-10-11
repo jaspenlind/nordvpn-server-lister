@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import matchers from "expect/build/matchers";
 import { SyncExpectationResult } from "expect/build/types";
 import { matcherHint, printReceived } from "jest-matcher-utils";
