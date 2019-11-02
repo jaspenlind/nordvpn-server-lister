@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import argsAny, { ParserSettings } from "args-any";
+import { parse } from "args-any";
 import request from "request-promise";
 import { Server, QueryResult } from "../models/serverQueryResult";
 
@@ -46,7 +46,7 @@ const run = async (args: string[]) => {
 
   const servers = await getServers();
 
-  const options = argsAny.parse(args, { keyPrefix: "filter" });
+  const options = parse(args, { keyPrefix: "filter" });
 
   const result = options.filter(...servers.items);
 
