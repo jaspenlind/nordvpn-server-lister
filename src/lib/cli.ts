@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import optionParser, { ParserSettings } from "option-parser";
+import argsAny, { ParserSettings } from "args-any";
 import request from "request-promise";
 import { Server, QueryResult } from "../models/serverQueryResult";
 
@@ -14,7 +14,7 @@ usage: node ${args[1]} [parameters]
    -filter.flag=\\"SE\\" -filter.load\\>24         Lists servers in Sweden with a load greater than 24
    -output=ip_address -output=country           Outputs server ip address & country as json
    -output=ip_address -raw                      Outputs server ip address as raw text
-   -h                                           Shows this help message  
+   -h                                           Shows this help message
 `);
     process.exit(0);
   }
@@ -46,9 +46,7 @@ const run = async (args: string[]) => {
 
   const servers = await getServers();
 
-  const settings: ParserSettings = { keyPrefix: "filter" };
-
-  const options = optionParser.parse(args, settings);
+  const options = argsAny.parse(args, { keyPrefix: "filter" });
 
   const result = options.filter(...servers.items);
 

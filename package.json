@@ -17,6 +17,7 @@
     "debug": "node --nolazy --inspect-brk=9229 node_modules/jest/bin/jest.js -i",
     "format": "prettier --ignore-path .eslintignore --write \"**/*.{js,ts,jsx,tsx}\" -c",
     "lint": "eslint \"**/*.{ts,tsx,js,jsx}\" --fix",
+    "start": "ts-node src/bin/vpn-servers.ts",
     "postversion": "git push && git push --tags && npm run clean",
     "prepare": "npm run build",
     "prepublishOnly": "npm-run-all test lint",
@@ -37,8 +38,8 @@
   },
   "dependencies": {
     "@types/lodash.escaperegexp": "^4.1.6",
+    "args-any": "0.0.1-beta.2",
     "lodash.escaperegexp": "^4.1.2",
-    "option-parser": "https://github.com/jaspenlind/option-parser/releases/download/v0.0.1-alpha.6/option-parser-0.0.1-alpha.6.tgz",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "tslib": "^1.10.0"
@@ -63,12 +64,12 @@
     "expect": "^24.9.0",
     "husky": "^3.0.8",
     "jest": "^24.9.0",
-    "jest-extended": "^0.11.2",
     "jest-matcher-utils": "^24.9.0",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   },
   "husky": {
