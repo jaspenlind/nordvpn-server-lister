@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { parse } from "args-any";
+import { project } from "args-any/dist/src/lib/partialProjector";
 import request from "request-promise";
 import { Server, QueryResult } from "../models/serverQueryResult";
 
@@ -11,7 +12,7 @@ const handleHelp = (args: string[]) => {
 usage: node ${args[1]} [parameters]
 
  Examples:
-   -filter.flag=\\"SE\\" -filter.load\\>24         Lists servers in Sweden with a load greater than 24
+   -filter.flag=SE -filter.load>24         Lists servers in Sweden with a load greater than 24
    -output=ip_address -output=country           Outputs server ip address & country as json
    -output=ip_address -raw                      Outputs server ip address as raw text
    -h                                           Shows this help message
@@ -46,11 +47,15 @@ const run = async (args: string[]) => {
 
   const servers = await getServers();
 
-  const options = parse(args, { keyPrefix: "filter" });
+  const filterOptions = parse(args, { keyPrefix: "filter" });
 
-  const result = options.filter(...servers.items);
+  const result = filterOptions.filter(...servers.items);
 
-  console.log(result);
+  const outputOptions = parse(args, { keyPrefix: "output" });
+
+  const outputFilter = outputOptions.asPartial<Server>();
+
+  console.log(result.map(x => project(x, outputFilter)));
 };
 
 export default { run };
