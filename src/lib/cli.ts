@@ -1,10 +1,8 @@
 #!/usr/bin/env node
-import { parse } from "args-any";
+import argsAny from "args-any";
 import { project } from "args-any/dist/src/lib/partialProjector";
-import request from "request-promise";
+import { fetch } from "./api";
 import { Server, QueryResult } from "../models/serverQueryResult";
-
-const REQUEST_LIMIT = 16384;
 
 const handleHelp = (args: string[]) => {
   if (args.filter(x => x === "-h").length > 0) {
@@ -21,41 +19,30 @@ usage: node ${args[1]} [parameters]
   }
 };
 
-const getServers = async (): Promise<QueryResult<Server>> => {
-  let moreExists = false;
-  let response: string = await request(`https://api.nordvpn.com/server?limit=${REQUEST_LIMIT}`, {
-    json: false
-  });
+const filter = (servers: QueryResult<Server>, args: string[]) => {
+  const filterOptions = argsAny.parse(args, { keyPrefix: "filter", flags: [] });
 
-  if (response && response.startsWith("[") && !response.endsWith("]")) {
-    response = response.substring(0, response.lastIndexOf("{") - 1);
-    moreExists = true;
+  return filterOptions.filter(...servers.items);
+};
+
+const print = (servers: Server[], args: string[]) => {
+  const outputOptions = argsAny.parse(args, { keyPrefix: "output" });
+
+  if (outputOptions.size > 0) {
+    const outputFilter = outputOptions.asPartial<Server>();
+
+    console.log(servers.map(x => project(x, outputFilter)));
+  } else {
+    console.log(servers);
   }
-
-  const servers: Server[] = JSON.parse(response);
-
-  const result: QueryResult<Server> = {
-    items: servers,
-    moreExists
-  };
-
-  return Promise.resolve(result);
 };
 
 const run = async (args: string[]) => {
   handleHelp(args);
 
-  const servers = await getServers();
+  const result = await fetch().then(response => filter(response, args));
 
-  const filterOptions = parse(args, { keyPrefix: "filter" });
-
-  const result = filterOptions.filter(...servers.items);
-
-  const outputOptions = parse(args, { keyPrefix: "output" });
-
-  const outputFilter = outputOptions.asPartial<Server>();
-
-  console.log(result.map(x => project(x, outputFilter)));
+  print(result, args);
 };
 
 export default { run };

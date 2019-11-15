@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import cli from "./lib/cli";
+import { fetch } from "./lib/api";
 
-export default cli;
+export default fetch;
