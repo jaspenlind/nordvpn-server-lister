@@ -1,5 +1,5 @@
-export { default as Category } from "./Category";
-export { default as Coordinate } from "./Coordinate";
-export { default as Server } from "./Server";
-export { default as ServerFeatures } from "./ServerFeatures";
-export { default as QueryResult } from "./QueryResult";
+export { Category } from "./Category";
+export { Coordinate } from "./Coordinate";
+export { Server } from "./Server";
+export { ServerFeatures } from "./ServerFeatures";
+export { QueryResult } from "./QueryResult";

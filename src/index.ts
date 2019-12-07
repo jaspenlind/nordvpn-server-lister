@@ -1,4 +1,10 @@
 #!/usr/bin/env node
 import { fetch } from "./lib/api";
 
-export default fetch;
+export * from "./types";
+
+export { fetch };
+
+export default {
+  fetch
+};

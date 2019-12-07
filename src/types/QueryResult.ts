@@ -1,4 +1,4 @@
-export default interface QueryResult<T> {
+export interface QueryResult<T> {
   items: T[];
   moreExists: boolean;
 }

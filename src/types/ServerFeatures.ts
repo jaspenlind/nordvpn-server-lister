@@ -1,4 +1,4 @@
-export default interface ServerFeatures {
+export interface ServerFeatures {
   ikev2: boolean;
   openvpn_udp: boolean;
   openvpn_tcp: boolean;

@@ -1,4 +1,4 @@
-import fetch from "../src";
+import { fetch } from "../src";
 
 describe("api", () => {
   describe("fetch", () => {

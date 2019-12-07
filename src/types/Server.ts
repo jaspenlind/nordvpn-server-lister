@@ -1,6 +1,6 @@
 import { Category, Coordinate, ServerFeatures } from ".";
 
-export default interface Server {
+export interface Server {
   id: number;
   ip_address: string;
   search_keywords: string[];
