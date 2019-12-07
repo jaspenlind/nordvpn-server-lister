@@ -20,13 +20,13 @@ npm install -g nordvpn-server-lister
 ### CLI
 
 ```shell
-usage: vpn-servers [filters] [output]
+usage: vpn-servers [parameters]
+    [-filter.<property> eq|lt|gt|le|ge|ne <value>]...   Filter result
+    [-output=<property>]...                             Proprerties to show in result
+    [-h]                                                Shows this help message
 
- Examples:
-   -filter.flag=SE -filter.load ge 24           Lists servers in Sweden with a load greater than 24
-   -output=ip_address -output=country           Outputs server ip address & country as json
-   -output=ip_address -raw                      Outputs server ip address as raw text
-   -h                                           Shows this help message
+ Example:
+   -filter.flag=SE -filter.load gt 24 -output=name      Lists servers whith flag=SE and load greater than 24
 ```
 
 ### API

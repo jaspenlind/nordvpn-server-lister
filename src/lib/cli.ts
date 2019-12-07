@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import argsAny from "args-any";
+import argsAny, { Option } from "args-any";
 import { project } from "args-any/dist/src/lib/partialProjector";
 import { fetch } from "./api";
 import { Server, QueryResult } from "../models/serverQueryResult";
@@ -7,13 +7,13 @@ import { Server, QueryResult } from "../models/serverQueryResult";
 const handleHelp = (args: string[]) => {
   if (args.filter(x => x === "-h").length > 0) {
     console.log(`
-usage: node ${args[1]} [parameters]
+usage: vpn-servers [parameters]
+    [-filter.<property> eq|lt|gt|le|ge|ne <value>]...   Filter result
+    [-output=<property>]...                             Proprerties to show in result
+    [-h]                                                Shows this help message
 
- Examples:
-   -filter.flag=SE -filter.load>24         Lists servers in Sweden with a load greater than 24
-   -output=ip_address -output=country           Outputs server ip address & country as json
-   -output=ip_address -raw                      Outputs server ip address as raw text
-   -h                                           Shows this help message
+ Example:
+   -filter.flag=SE -filter.load gt 24 -output=name      Lists servers whith flag=SE and load greater than 24
 `);
     process.exit(0);
   }
@@ -22,14 +22,28 @@ usage: node ${args[1]} [parameters]
 const filter = (servers: QueryResult<Server>, args: string[]) => {
   const filterOptions = argsAny.parse(args, { keyPrefix: "filter", flags: [] });
 
-  return filterOptions.filter(...servers.items);
+  return Promise.resolve(filterOptions.filter(...servers.items));
 };
 
 const print = (servers: Server[], args: string[]) => {
-  const outputOptions = argsAny.parse(args, { keyPrefix: "output" });
+  if (servers.length === 0) {
+    console.log("Empty result");
+    return;
+  }
+
+  const outputOptions = argsAny.parse(args, {
+    filter: (option: Option) => option.key === "output",
+    valueAsKey: true
+  });
 
   if (outputOptions.size > 0) {
-    const outputFilter = outputOptions.asPartial<Server>();
+    let outputFilter = outputOptions.asPartial<Server>();
+
+    const test = project(servers[0], outputFilter);
+
+    if (Object.keys(test).length === 0) {
+      outputFilter = { name: "name" };
+    }
 
     console.log(servers.map(x => project(x, outputFilter)));
   } else {
@@ -37,10 +51,20 @@ const print = (servers: Server[], args: string[]) => {
   }
 };
 
+const sortResult = (servers: Server[]) => {
+  if (servers.length === 0) {
+    return servers;
+  }
+
+  return servers.sort((first, second) => first.load - second.load);
+};
+
 const run = async (args: string[]) => {
   handleHelp(args);
 
-  const result = await fetch().then(response => filter(response, args));
+  const result = await fetch()
+    .then(response => filter(response, args))
+    .then(filtered => sortResult(filtered));
 
   print(result, args);
 };
