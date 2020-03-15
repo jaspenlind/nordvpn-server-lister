@@ -32,6 +32,7 @@
   },
   "rules": {
     "no-console": ["off"],
+    "import/extensions": ["error", { "ts": "never" }],
     "import/prefer-default-export": ["off"],
     "no-restricted-syntax": ["off", "ForOfStatement"],
     "@typescript-eslint/explicit-function-return-type": ["off"],
@@ -47,7 +48,10 @@
     "react/no-unescaped-entities": [
       "error",
       {
-        "forbid": [{ "char": ">", "alternatives": ["&gt;"] }, { "char": "}", "alternatives": ["&#125;"] }]
+        "forbid": [
+          { "char": ">", "alternatives": ["&gt;"] },
+          { "char": "}", "alternatives": ["&#125;"] }
+        ]
       }
     ],
     "jest/no-disabled-tests": "warn",

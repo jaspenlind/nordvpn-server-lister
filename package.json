@@ -42,39 +42,40 @@
   },
   "dependencies": {
     "@types/lodash.escaperegexp": "^4.1.6",
-    "args-any": "^1.0.1",
+    "args-any": "^1.1.0",
     "lodash.escaperegexp": "^4.1.2",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "tslib": "^1.10.0"
+    "tslib": "^1.11.1"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^8.2.0",
-    "@types/jest": "^24.0.23",
-    "@types/request-promise": "^4.1.44",
-    "@typescript-eslint/eslint-plugin": "^2.7.0",
-    "@typescript-eslint/parser": "^2.7.0",
-    "commitlint": "^8.2.0",
-    "coveralls": "^3.0.7",
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^23.0.4",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@types/jest": "^25.1.4",
+    "@types/request-promise": "^4.1.45",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "commitlint": "^8.3.5",
+    "coveralls": "^3.0.9",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
-    "expect": "^24.9.0",
-    "husky": "^3.0.9",
-    "jest": "^24.9.0",
-    "jest-matcher-utils": "^24.9.0",
-    "lint-staged": "^9.4.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "expect": "^25.1.0",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "jest-matcher-utils": "^25.1.0",
+    "lint-staged": "^10.0.8",
+    "minimist": "^1.2.5",
     "prettier": "^1.19.1",
-    "rimraf": "^3.0.0",
-    "ts-jest": "^24.1.0",
-    "ts-node": "^8.5.0",
-    "typescript": "^3.7.2"
+    "rimraf": "^3.0.2",
+    "ts-jest": "^25.2.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
   },
   "husky": {
     "hooks": {
@@ -85,7 +86,6 @@
   "lint-staged": {
     "*.{ts,js}": [
       "eslint --fix",
-      "git add",
       "jest --bail --findRelatedTests"
     ]
   }
