@@ -5,7 +5,7 @@ import { fetch } from "./api";
 import { Server, QueryResult } from "../models/serverQueryResult";
 
 const handleHelp = (args: string[]) => {
-  if (args.filter(x => x === "-h").length > 0) {
+  if (args.filter((x) => x === "-h").length > 0) {
     console.log(`
 usage: vpn-servers [parameters]
     [-filter.<property> eq|lt|gt|le|ge|ne <value>]...   Filter result
@@ -45,7 +45,7 @@ const print = (servers: Server[], args: string[]) => {
       outputFilter = { name: "name" };
     }
 
-    console.log(servers.map(x => project(x, outputFilter)));
+    console.log(servers.map((x) => project(x, outputFilter)));
   } else {
     console.log(servers);
   }
@@ -59,12 +59,13 @@ const sortResult = (servers: Server[]) => {
   return servers.sort((first, second) => first.load - second.load);
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const run = async (args: string[]) => {
   handleHelp(args);
 
   const result = await fetch()
-    .then(response => filter(response, args))
-    .then(filtered => sortResult(filtered));
+    .then((response) => filter(response, args))
+    .then((filtered) => sortResult(filtered));
 
   print(result, args);
 };

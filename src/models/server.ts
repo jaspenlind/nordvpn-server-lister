@@ -11,13 +11,13 @@ export const empty: Server = {
   features: features.empty,
   flag: "",
   id: 0,
-  // eslint-disable-next-line @typescript-eslint/camelcase
+  // eslint-disable-next-line
   ip_address: "",
   load: 0,
   location: coordinate.empty,
   name: "empty",
   price: 0,
-  // eslint-disable-next-line @typescript-eslint/camelcase
+  // eslint-disable-next-line
   search_keywords: []
 };
 

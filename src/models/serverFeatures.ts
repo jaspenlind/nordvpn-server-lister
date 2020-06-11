@@ -1,6 +1,5 @@
 import { ServerFeatures } from "../types";
 
-/* eslint-disable @typescript-eslint/camelcase */
 export const empty: ServerFeatures = {
   ikev2: false,
   ikev2_v6: false,
@@ -23,7 +22,6 @@ export const empty: ServerFeatures = {
   socks: false,
   wireguard_udp: false
 };
-/* eslint-enable @typescript-eslint/camelcase */
 
 export default {
   empty
