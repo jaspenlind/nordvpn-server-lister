@@ -3,7 +3,7 @@
 CLI / api for listing NordVPN servers
 
 [![Build Status](https://travis-ci.com/jaspenlind/nordvpn-server-lister.svg)](https://travis-ci.com/jaspenlind/nordvpn-server-lister)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93451c5afd954bd0a56d2417d2dbe301)](https://www.codacy.com/manual/jaspenlind/asuswrt-cli?utm_source=github.com&utm_medium=referral&utm_content=jaspenlind/nordvpn-server-lister&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7b675464880a469fae145dbaf9d7f9db)](https://www.codacy.com/gh/jaspenlind/nordvpn-server-lister/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jaspenlind/nordvpn-server-lister&utm_campaign=Badge_Grade)
 [![Coverage Status](https://coveralls.io/repos/jaspenlind/asuswrt-cli/badge.svg)](https://coveralls.io/r/jaspenlind/nordvpn-server-lister)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 ![David](https://david-dm.org/jaspenlind/nordvpn-server-lister.svg)
