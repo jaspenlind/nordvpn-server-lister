@@ -1,6 +1,6 @@
 {
   "name": "nordvpn-server-lister",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "A tool for listing NordVPN servers",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
