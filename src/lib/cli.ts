@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import argsAny, { Option } from "args-any";
-import { project } from "args-any/dist/src/lib/partial-projector";
+import { project } from "args-any/dist/src/lib/partial";
 import { fetch } from "./api";
 import { Server, QueryResult } from "../models/serverQueryResult";
 
